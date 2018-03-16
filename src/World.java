@@ -1,11 +1,12 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public class World {
     private static final int sleaper = 1000;
     private int countW;
     private int countH;
     private Prim[][] worldMatrix;
-    private Prim[] population;
+    private ArrayList<Protozoa> population;
     private Drawer drawer;
 
     World(int countW, int countH, Drawer drawer) throws InterruptedException {
@@ -17,16 +18,15 @@ public class World {
         for(int i = 0; i < countW; i++){
             for(int j = 0; j < countH; j++){
                 if(i == 0 || j == 0 || i == countW-1 || j == countH-1){
-                    createPrimAt(i, j, Color.blue);
+                    createPrimAt(i, j, PrimType.WALL);
                 } else {
-                    createPrimAt(i, j, Color.gray);
+                    createPrimAt(i, j, PrimType.SPACE);
                 }
             }
         }
         // set first population
-        population = new Prim[1];
-        createPrimAt(6, 6, Color.magenta);
-        population[0] = worldMatrix[6][6];
+        population = new ArrayList<Protozoa>();
+        createProtozoaAt(6, 6);
         // set drawer
         this.drawer.setCountH(this.countH);
         this.drawer.setCountW(this.countW);
@@ -36,22 +36,27 @@ public class World {
         lifeCycle();
     }
 
-    private void createPrimAt(int x, int y, Color color){
-        worldMatrix[x][y] = new Prim(x, y, color, this);
+    private void createPrimAt(int x, int y, PrimType type){
+        worldMatrix[x][y] = new Prim(x, y, type, this);
+    }
+
+    private void createProtozoaAt(int x, int y){
+        worldMatrix[x][y] = new Protozoa(x, y, this);
+        population.add((Protozoa) worldMatrix[x][y]);
     }
 
     void movePrime(int x, int y, int newX, int newY){
         if (x != newX && y != newY) {
             worldMatrix[newX][newY] = worldMatrix[x][y];
-            createPrimAt(x, y, Color.gray);
+            createPrimAt(x, y, PrimType.SPACE);
         }
     }
 
     private void lifeCycle() throws InterruptedException {
         while (true) {
             Thread.sleep(sleaper);
-            for (int i = 0; i < population.length; i++) {
-                population[i].moveTo(10, 10);
+            for (int i = 0; i < population.size(); i++) {
+                population.get(i).moveTo(10, 10);
             }
             drawer.repaint();
         }
