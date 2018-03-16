@@ -6,40 +6,38 @@ public class Protozoa extends Prim {
         genome = new byte[64];
     }
 
-    private int lookAt(Direction direction){
-        int lookX = super.getX();
-        int lookY = super.getY();
-        switch (direction){
-            case UP:
-                lookY--;
+    private int move(Direction direction){
+        Chord moveChord = super.getChord().moveTo(direction);
+        PrimType moveType = myWorld.typeAt(moveChord);
+        switch (moveType){
+            case POISON:
+                //TODO die
                 break;
-            case UP_RIGHT:
-                lookX++;
-                lookY--;
-                break;
-            case RIGHT:
-                lookX++;
-                break;
-            case DOWN_RIGHT:
-                lookX++;
-                lookY++;
-                break;
-            case DOWN:
-                lookY++;
-                break;
-            case DOWN_LEFT:
-                lookX--;
-                lookY++;
-                break;
-            case LEFT:
-                lookX--;
-                break;
-            case UP_LEFT:
-                lookX--;
-                lookY--;
+            case SPACE:
+                super.moveTo(moveChord);
                 break;
         }
-        return myWorld.typeAt(lookX, lookY).ordinal();
+        return moveType.ordinal();
     }
+
+    private int lookAt(Direction direction){
+        Chord lookChord = super.getChord().moveTo(direction);
+        return myWorld.typeAt(lookChord).ordinal();
+    }
+
+    private int eatAt(Direction direction){
+        Chord eatChord = super.getChord().moveTo(direction);
+        PrimType eatType = myWorld.typeAt(eatChord);
+        switch (eatType){
+            case FOOD:
+                //TODO eat
+                break;
+            case POISON:
+                //TODO move to food
+                break;
+        }
+        return eatType.ordinal();
+    }
+
 
 }

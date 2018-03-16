@@ -2,14 +2,13 @@ import java.awt.*;
 
 public class Prim {
     private PrimType type;
-    private int x;
-    private int y;
+    private Chord chord;
     private Color color;
     World myWorld;
 
     Prim(int x, int y, PrimType type, World world){
-        this.x = x;
-        this.y = y;
+        this.chord.x = x;
+        this.chord.y = y;
         this.type = type;
         switch (this.type){
             case SPACE:
@@ -34,20 +33,16 @@ public class Prim {
         myWorld = world;
     }
 
-    protected void moveTo(int newX, int newY){
-        myWorld.movePrime(x, y, newX, newY);
-        x = newX;
-        y = newY;
+    protected void moveTo(Chord newChord){
+        myWorld.movePrim(chord.x, chord.y, newChord.x, newChord.y);
+        chord = newChord;
     }
 
     public Color getColor() {
         return color;
     }
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
+    public Chord getChord() {
+        return chord;
     }
     public PrimType getType() {
         return type;
