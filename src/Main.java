@@ -9,7 +9,7 @@ public class Main {
     private static final int countW = 15;
     private static final int countH = 15;
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
         JFrame frame = new JFrame("Evolution");
         Drawer drawer = new Drawer(sizeW, sizeH, space);
         frame.add(drawer);
