@@ -14,9 +14,9 @@ public class World {
         for(int i = 0; i < countW; i++){
             for(int j = 0; j < countH; j++){
                 if(i == 0 || j == 0 || i == countW-1 || j == countH-1){
-                    worldMatrix[i][j] = new Prim(Color.blue);
+                    createPrimAt(i, j, Color.blue);
                 } else {
-                    worldMatrix[i][j] = new Prim(Color.gray);
+                    createPrimAt(i, j, Color.gray);
                 }
             }
         }
@@ -24,6 +24,10 @@ public class World {
         this.drawer.setCountW(this.countW);
         this.drawer.setMatrix(worldMatrix);
         this.drawer.repaint();
+    }
+
+    void createPrimAt(int x, int y, Color color){
+        worldMatrix[x][y] = new Prim(color, this);
     }
 
 
