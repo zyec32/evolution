@@ -62,5 +62,9 @@ public class World {
         }
     }
 
+    public PrimType typeAt(int x, int y){
+        return worldMatrix[x][y].getType();
+    }
+
 
 }

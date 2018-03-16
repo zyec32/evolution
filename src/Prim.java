@@ -34,7 +34,7 @@ public class Prim {
         myWorld = world;
     }
 
-    public void moveTo(int newX, int newY){
+    protected void moveTo(int newX, int newY){
         myWorld.movePrime(x, y, newX, newY);
         x = newX;
         y = newY;
@@ -43,12 +43,13 @@ public class Prim {
     public Color getColor() {
         return color;
     }
-
     public int getX() {
         return x;
     }
-
     public int getY() {
         return y;
+    }
+    public PrimType getType() {
+        return type;
     }
 }
