@@ -1,13 +1,13 @@
 import javax.swing.*;
 
 public class Main {
-    private static final int startW = 20;
-    private static final int startH = 40;
+    private static final int startW = 16;
+    private static final int startH = 38;
     private static final int sizeW = 15;
     private static final int sizeH = 15;
     private static final int space = 1;
-    private static final int countW = 90;
-    private static final int countH = 50;
+    private static final int countW = 15;
+    private static final int countH = 15;
 
     public static void main(String[] args){
         JFrame frame = new JFrame("Evolution");
@@ -16,5 +16,7 @@ public class Main {
         frame.setSize(startW+countW*(sizeW+ space), startH+countH*(sizeH+ space));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        World world = new World(countW, countH, drawer);
     }
 }
