@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Protozoa extends Prim {
@@ -18,9 +19,21 @@ public class Protozoa extends Prim {
         lifeSize = 0;
         isDead = false;
     }
-    Protozoa(Protozoa protozoa, World world){
-        super(protozoa.getChord().x, protozoa.getChord().y, PrimType.PROTOZOA, world);
-
+    Protozoa(Protozoa protozoa){
+        super(protozoa.getChord().x, protozoa.getChord().y, PrimType.PROTOZOA, protozoa.getWorld());
+        genom = protozoa.genom;
+        programmCounter = 0;
+        hp = 50;
+        lifeSize = 0;
+        isDead = false;
+    }
+    Protozoa(Protozoa protozoa, byte[] genom){
+        super(protozoa.getChord().x, protozoa.getChord().y, PrimType.PROTOZOA, protozoa.getWorld());
+        this.genom = genom;
+        programmCounter = 0;
+        hp = 50;
+        lifeSize = 0;
+        isDead = false;
     }
 
     public void live(){
@@ -122,6 +135,15 @@ public class Protozoa extends Prim {
         return genom;
     }
 
+    public ArrayList<Protozoa> child() {
+        ArrayList<Protozoa> childs = new ArrayList<Protozoa>();
+        childs.add(new Protozoa(this));
+        childs.add(new Protozoa(this));
+        childs.add(new Protozoa(this));
+        childs.add(new Protozoa(this, mutation()));
+        return childs;
+    }
+
     public int getHp() {
         return hp;
     }
@@ -136,5 +158,9 @@ public class Protozoa extends Prim {
 
     public boolean getIsDead() {
         return isDead;
+    }
+
+    public World getWorld(){
+        return myWorld;
     }
 }
