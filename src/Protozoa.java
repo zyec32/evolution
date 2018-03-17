@@ -116,6 +116,12 @@ public class Protozoa extends Prim {
         }
     }
 
+    private byte[] mutation(){
+        Random rnd = new Random();
+        genom[rnd.nextInt(maxCounter)] = (byte)rnd.nextInt(16);
+        return genom;
+    }
+
     public int getHp() {
         return hp;
     }

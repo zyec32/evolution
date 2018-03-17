@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class World {
     private static final int sleaper = 100;
+    private static final int countOfFood = 10;
     private int countW;
     private int countH;
     private Prim[][] worldMatrix;
@@ -24,6 +25,7 @@ public class World {
                 }
             }
         }
+        genFood();
         // set first population
         population = new ArrayList<Protozoa>();
         createProtozoaAt(6, 6);
@@ -34,7 +36,16 @@ public class World {
         createProtozoaAt(11, 11);
         createProtozoaAt(10, 10);
         createProtozoaAt(10,11);
-        // set food
+        // set drawer
+        this.drawer.setCountH(this.countH);
+        this.drawer.setCountW(this.countW);
+        this.drawer.setMatrix(worldMatrix);
+        this.drawer.repaint();
+
+        lifeCycle();
+    }
+
+    private void genFood(){
         createPrimAt(12, 10, PrimType.FOOD);
         createPrimAt(12, 11, PrimType.FOOD);
         createPrimAt(12, 12, PrimType.FOOD);
@@ -45,13 +56,6 @@ public class World {
         createPrimAt(6, 12, PrimType.FOOD);
         createPrimAt(6, 10, PrimType.FOOD);
         createPrimAt(6, 11, PrimType.FOOD);
-        // set drawer
-        this.drawer.setCountH(this.countH);
-        this.drawer.setCountW(this.countW);
-        this.drawer.setMatrix(worldMatrix);
-        this.drawer.repaint();
-
-        lifeCycle();
     }
 
     private void createPrimAt(int x, int y, PrimType type){
