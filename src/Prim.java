@@ -7,8 +7,7 @@ public class Prim {
     World myWorld;
 
     Prim(int x, int y, PrimType type, World world){
-        this.chord.x = x;
-        this.chord.y = y;
+        this.chord = new Chord(x, y);
         this.type = type;
         switch (this.type){
             case SPACE:
@@ -42,7 +41,9 @@ public class Prim {
         return color;
     }
     public Chord getChord() {
-        return chord;
+        // return chord;
+        // it fix bug!!!
+        return new Chord(chord.x, chord.y);
     }
     public PrimType getType() {
         return type;

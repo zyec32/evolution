@@ -46,7 +46,7 @@ public class World {
     }
 
     public void movePrim(int x, int y, int newX, int newY){
-        if (x != newX && y != newY) {
+        if (!(x == newX && y == newY)) {
             worldMatrix[newX][newY] = worldMatrix[x][y];
             createPrimAt(x, y, PrimType.SPACE);
         }
@@ -56,8 +56,9 @@ public class World {
         while (true) {
             Thread.sleep(sleaper);
             for (int i = 0; i < population.size(); i++) {
-
+                population.get(i).live();
             }
+            drawer.setMatrix(worldMatrix);
             drawer.repaint();
         }
     }

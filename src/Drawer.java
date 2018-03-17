@@ -30,6 +30,9 @@ public class Drawer extends JPanel {
             for (int j = 0; j < countH; j++) {
                 g2d.setPaint(matrix[i][j].getColor());
                 g2d.fillRect(i*(sizeW+space), j*(sizeH+space), sizeW, sizeH);
+
+
+
             }
         }
     }

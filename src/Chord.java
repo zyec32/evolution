@@ -6,37 +6,37 @@ public class Chord {
         this.y = y;
     }
 
-    public Chord moveTo(Direction direction){
+    public static Chord moveTo(Direction direction, Chord chord){
         switch (direction){
             case UP:
-                y--;
+                chord.y--;
                 break;
             case UP_RIGHT:
-                x++;
-                y--;
+                chord.x++;
+                chord.y--;
                 break;
             case RIGHT:
-                x++;
+                chord.x++;
                 break;
             case DOWN_RIGHT:
-                x++;
-                y++;
+                chord.x++;
+                chord.y++;
                 break;
             case DOWN:
-                y++;
+                chord.y++;
                 break;
             case DOWN_LEFT:
-                x--;
-                y++;
+                chord.x--;
+                chord.y++;
                 break;
             case LEFT:
-                x--;
+                chord.x--;
                 break;
             case UP_LEFT:
-                x--;
-                y--;
+                chord.x--;
+                chord.y--;
                 break;
         }
-        return this;
+        return chord;
     }
 }
