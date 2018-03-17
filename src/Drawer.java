@@ -30,9 +30,10 @@ public class Drawer extends JPanel {
             for (int j = 0; j < countH; j++) {
                 g2d.setPaint(matrix[i][j].getColor());
                 g2d.fillRect(i*(sizeW+space), j*(sizeH+space), sizeW, sizeH);
-
-
-
+                if (matrix[i][j].getType() == PrimType.PROTOZOA) {
+                    g2d.setPaint(Color.black);
+                    g2d.drawString(String.valueOf(((Protozoa)matrix[i][j]).getHp()), i * (sizeW + space), (j + 1) * (sizeH + space) - 4);
+                }
             }
         }
     }

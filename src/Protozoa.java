@@ -14,6 +14,10 @@ public class Protozoa extends Prim {
         programmCounter = 0;
         hp = 50;
     }
+    Protozoa(Protozoa protozoa, World world){
+        super(protozoa.getChord().x, protozoa.getChord().y, PrimType.PROTOZOA, world);
+
+    }
 
     public void live(){
         for (int i = 0; i < matIter; i++){
@@ -37,6 +41,18 @@ public class Protozoa extends Prim {
         }
     }
 
+    public void execute(){
+        hp--;
+        if (hp <= 0){
+            die();
+        }
+    }
+
+    private void die(){
+        myWorld.deleteProtozoa(this);
+        myWorld.createProtozoaAt(super.getChord().x, super.getChord().y);
+    }
+
     private void addToCounter(int add){
         programmCounter += add;
         while (programmCounter >= maxCounter) {
@@ -50,7 +66,7 @@ public class Protozoa extends Prim {
         PrimType moveType = myWorld.typeAt(moveChord);
         switch (moveType){
             case POISON:
-                //TODO die
+                die();
                 break;
             case SPACE:
                 super.moveTo(moveChord);
@@ -71,19 +87,33 @@ public class Protozoa extends Prim {
         PrimType eatType = myWorld.typeAt(eatChord);
         switch (eatType){
             case FOOD:
-                //TODO eat
+                eat(eatChord);
                 break;
             case POISON:
-                //TODO move to food
+                movePoisonToFood(eatChord);
                 break;
         }
         return eatType.ordinal();
     }
 
+    private void eat(Chord chord){
+        hp += 10;
+        myWorld.deletePrimAt(chord.x, chord.y);
+    }
+
+    private void movePoisonToFood(Chord chord){
+        myWorld.movePoisonToFood(chord.x, chord.y);
+    }
+
     private void generateGenom(){
         Random rnd = new Random();
         for (int i = 0; i < maxCounter; i++){
-            genom[i] = (byte)rnd.nextInt(10);
+            genom[i] = (byte)rnd.nextInt(16);
         }
     }
+
+    public int getHp() {
+        return hp;
+    }
+
 }
