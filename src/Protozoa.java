@@ -6,6 +6,8 @@ public class Protozoa extends Prim {
     private byte[] genom;
     private byte programmCounter;
     private int hp;
+    private int lifeSize;
+    private boolean isDead;
 
     Protozoa(int x, int y, World world){
         super(x, y, PrimType.PROTOZOA, world);
@@ -13,6 +15,8 @@ public class Protozoa extends Prim {
         generateGenom();
         programmCounter = 0;
         hp = 50;
+        lifeSize = 0;
+        isDead = false;
     }
     Protozoa(Protozoa protozoa, World world){
         super(protozoa.getChord().x, protozoa.getChord().y, PrimType.PROTOZOA, world);
@@ -43,14 +47,14 @@ public class Protozoa extends Prim {
 
     public void execute(){
         hp--;
+        lifeSize++;
         if (hp <= 0){
             die();
         }
     }
 
     private void die(){
-        myWorld.deleteProtozoa(this);
-        myWorld.createProtozoaAt(super.getChord().x, super.getChord().y);
+        isDead = true;
     }
 
     private void addToCounter(int add){
@@ -116,4 +120,15 @@ public class Protozoa extends Prim {
         return hp;
     }
 
+    public byte[] getGenom() {
+        return genom;
+    }
+
+    public int getLifeSize() {
+        return lifeSize;
+    }
+
+    public boolean getIsDead() {
+        return isDead;
+    }
 }

@@ -27,6 +27,12 @@ public class World {
         // set first population
         population = new ArrayList<Protozoa>();
         createProtozoaAt(6, 6);
+        createProtozoaAt(3, 6);
+        createProtozoaAt(7, 6);
+        createProtozoaAt(3, 7);
+        createProtozoaAt(5, 7);
+        createProtozoaAt(11, 11);
+        createProtozoaAt(10, 10);
         createProtozoaAt(10,11);
         // set food
         createPrimAt(12, 10, PrimType.FOOD);
@@ -80,12 +86,21 @@ public class World {
     private void lifeCycle() throws InterruptedException {
         while (true) {
             Thread.sleep(sleaper);
+            int countOfLife = population.size();
             for (int i = 0; i < population.size(); i++) {
-                population.get(i).live();
-                population.get(i).execute();
+                if (!population.get(i).getIsDead()) {
+                    population.get(i).live();
+                    population.get(i).execute();
+                } else {
+                    countOfLife--;
+                }
             }
             drawer.setMatrix(worldMatrix);
             drawer.repaint();
+
+            if (countOfLife <= 4) {
+                return;
+            }
         }
     }
 
